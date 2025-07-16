@@ -1,0 +1,48 @@
+name: Robot Framework Tests
+
+on:
+  push:
+    paths:
+      - 'TEST/**'
+      - '.github/workflows/robot-tests.yml'
+  pull_request:
+    paths:
+      - 'TEST/**'
+      - '.github/workflows/robot-tests.yml'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install robotframework robotframework-seleniumlibrary
+
+      - name: Install Chrome browser
+        uses: browser-actions/setup-chrome@v1
+
+      - name: Install ChromeDriver
+        uses: nanasess/setup-chromedriver@v2
+
+      - name: Run Robot Framework tests
+        run: |
+          robot TEST/
+
+      - name: Upload Robot Framework reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: robot-reports
+          path: |
+            log.html
+            report.html
+            output.xml 
