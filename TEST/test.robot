@@ -8,5 +8,5 @@ ${BROWSER}  chrome
 
 *** Test Cases  ***
 Verify Website Availability
-    Ope Browser     ${URL}    ${BROWSER}   options=add_argument("--disable-gpu");add_argument("--no-sandbox");add_argument("--disable-dev-shm-usage");add_argument("--headless=new")  
+    Open Browser     ${URL}    ${BROWSER}   options=add_argument("--disable-gpu");add_argument("--no-sandbox");add_argument("--disable-dev-shm-usage");add_argument("--headless=new")  
     Sleep   10s
