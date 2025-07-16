@@ -4,9 +4,9 @@ name: Automated Login Tests
 
 on:
  push:
-   branches: [ "master" ]
+   branches: [ "main" ]
  pull_request:
-   branches: [ "master" ]
+   branches: [ "main" ]
 #   workflow_dispatch:
 #   schedule:
 #     - cron: '0 1 * * 1-5'  # Runs every 9AM in Asia/Manila timezone from Monday to Friday
@@ -34,13 +34,13 @@ jobs:
        pip install robotframework-jsonlibrary
        pip install robotframework-csvlibrary
        pip install pyotp
+       # The following is only needed if you use Browser library tests
        rfbrowser init 
-
 
    - name: Run Sample Verification Tests
      id: robot_test
      run: |
-       robot -d output -i active -x junit-report.xml TEST/test.robot
+       robot -d output -x junit-report.xml TEST/test.robot
        echo "exit_code=$?" >> $GITHUB_OUTPUT
 
    - name: Set the date and time
